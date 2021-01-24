@@ -90,3 +90,12 @@ def test_file():
         finally:
             if os.path.isfile(out_file):
                 os.remove(out_file)
+
+
+# --------------------------------------------------
+def test_text_stdout_lower():
+    """Test STDIN/STDOUT lowercase"""
+
+    out = getoutput(f'{prg} -ee "FOO Bar BAZ"')
+    assert out.strip() == 'foo bar baz'
+
