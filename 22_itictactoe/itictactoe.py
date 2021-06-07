@@ -16,6 +16,7 @@ class State(NamedTuple):
     draw: bool = False
     error: Optional[str] = None
     winner: Optional[str] = None
+    new: Optional[bool] = None
 
 
 def format_board(board: List[str]) -> str:
@@ -69,7 +70,7 @@ def get_move(state: State) -> State:
 
     # if cell is already taken, return error
     if state.board[int(cell) - 1] != '.':
-        return state.replace(error=f'Cell "{cell}" is already taken')
+        return state._replace(error=f'Cell "{cell}" is already taken')
 
     # need to modify state.board, so copy since its immutable
     board = state.board
