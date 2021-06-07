@@ -1,7 +1,10 @@
 # What is this?
 
 I worked through this great Python book which focuses on command-line interfaces in Python
-and testing using pytest. This was a great brush up on fundamentals and was great to see how professionals work through some Python problems.
+and testing using pytest. The book's main focus is to teach you how to write code that is Flexible (take in command-line arguments), 
+Documeneted (use something like argparse which will automatically produce usage statements), and Tested (writing
+unit tests for functions and integration tests for the entire program).
+This was a great brush up on fundamentals and was great to see how professionals work through some Python problems.
 It also focuses on beginning to intermediate topics in Python like comprehensions, string manipulation,
 regex', type hinting, and representing game state as a namedtuple. There is roughly one file that is edited by me in each numbered directory. This is my work
 and effort that was guided by this book. Look for the much more recent modified date and me as an author within this 
