@@ -6,7 +6,6 @@ Purpose: Rock the Casbah
 """
 
 import argparse
-import os
 import sys
 
 
@@ -24,14 +23,27 @@ def get_args():
                         type=argparse.FileType('rt'),
                         default = [sys.stdin],
                         nargs='*'
-    )      
+    )
+
+    parser.add_argument('--line',
+                        '-l',
+                        action='store_true',
+                        help='Select if you want to only see line info')
+    parser.add_argument('--word',
+                        '-w',
+                        action='store_true',
+                        help='Select if you want to only see word info')
+    parser.add_argument('--char',
+                        '-c',
+                        action='store_true',
+                        help='Select if you want to only see char info')    
     
     return parser.parse_args()
 
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
+    """Perform linux' wc function"""
 
     args = get_args()
 
@@ -39,24 +51,48 @@ def main():
     total_words = 0
     total_bytes = 0
 
+    # loop through all submitted files
     for fh in args.file:
         num_lines = 0
         num_words = 0
         num_bytes = 0
         for line in fh:
+            # increment words line and bytes for each file
             num_words += len(line.split())
             num_lines += 1
             num_bytes += len(line)
-        print(f'{num_lines:8}{num_words:8}{num_bytes:8} {fh.name}')
+            print_string = ''
+        # if user doesn't want all three statistics print only specified
+        if args.line or args.word or args.char:
+            if args.line:
+                print_string += f'{num_lines:8}'
+            if args.word:
+                print_string += f'{num_words:8}'
+            if args.char:
+                print_string += f'{num_bytes:8}'
+            print(f'{print_string} {fh.name}')
+        else:   
+            print(f'{num_lines:8}{num_words:8}{num_bytes:8} {fh.name}')
+
+        # if more than one file add to total stats
         if len(args.file) > 1:
             total_lines += num_lines
             total_words += num_words
             total_bytes += num_bytes
 
-    # print statement for totals
-
+    # if more than one file, print total stats
     if len(args.file) > 1:
-        print(f'{total_lines:8}{total_words:8}{total_bytes:8} total')
+        if args.line or args.word or args.char:
+            print_string = ''
+            if args.line:
+                print_string += f'{total_lines:8}'
+            if args.word:
+                print_string += f'{total_words:8}'
+            if args.char:
+                print_string += f'{total_bytes:8}'
+            print(f'{print_string} total') 
+        else:
+            print(f'{total_lines:8}{total_words:8}{total_bytes:8} total')
 
 
 # --------------------------------------------------

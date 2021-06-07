@@ -105,3 +105,52 @@ def test_stdin():
     rv, out = getstatusoutput(f'{prg} < {fox}')
     assert rv == 0
     assert out.rstrip() == '       1       9      45 <stdin>'
+
+
+# --------------------------------------------------
+def test_l_flag():
+    """Test on more than one file"""
+
+    rv, out = getstatusoutput(f'{prg} -l {fox} {sonnet}')
+    expected = ('       1 ../inputs/fox.txt\n'
+                '      17 ../inputs/sonnet-29.txt\n'
+                '      18 total')
+    assert rv == 0
+    assert out.rstrip() == expected
+
+
+    # --------------------------------------------------
+def test_w_flag():
+    """Test on more than one file"""
+
+    rv, out = getstatusoutput(f'{prg} -w {fox} {sonnet}')
+    expected = ('       9 ../inputs/fox.txt\n'
+                '     118 ../inputs/sonnet-29.txt\n'
+                '     127 total')
+    assert rv == 0
+    assert out.rstrip() == expected
+
+
+    # --------------------------------------------------
+def test_c_flag():
+    """Test on more than one file"""
+
+    rv, out = getstatusoutput(f'{prg} -c {fox} {sonnet}')
+    expected = ('      45 ../inputs/fox.txt\n'
+                '     661 ../inputs/sonnet-29.txt\n'
+                '     706 total')
+    assert rv == 0
+    assert out.rstrip() == expected
+
+
+# --------------------------------------------------
+def test_wc_flag():
+    """Test on more than one file"""
+
+    rv, out = getstatusoutput(f'{prg} -wc {fox} {sonnet}')
+    expected = ('       9      45 ../inputs/fox.txt\n'
+                '     118     661 ../inputs/sonnet-29.txt\n'
+                '     127     706 total')
+    assert rv == 0
+    assert out.rstrip() == expected
+
